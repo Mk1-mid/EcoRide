@@ -21,7 +21,11 @@ if bienvenida == 1:
                 match bicicleta:
                     case 1:
                         print(f"El valor estandar es {costo_estandar} por minuto\n")
-                        tiempo_uso = float(input("Ingrese el tiempo de uso en minutos:\n"))
+                        try:
+                            tiempo_uso = int(input("Ingrese el tiempo de uso en minutos:\n"))
+                        except ValueError:
+                            print("Por favor, ingresa un número entero válido para el tiempo de uso.")
+                            tiempo_uso = 0  # Asignar un valor por defecto o manejarlo según sea necesario
                         
                         if tiempo_uso > 0:
                             metodo_pago = int(input("Escoja método de pago \n1) Efectivo \n2) Tarjeta \n3) Puntos\n"))
@@ -48,7 +52,11 @@ if bienvenida == 1:
                     
                     case 2:
                         print(f"El valor premiun es {costo_premiun} por minuto\n")
-                        tiempo_uso = float(input("Ingrese el tiempo de uso en minutos:\n"))
+                        try:
+                            tiempo_uso = int(input("Ingrese el tiempo de uso en minutos:\n"))
+                        except ValueError:
+                            print("Por favor, ingresa un número entero válido para el tiempo de uso.")
+                            tiempo_uso = 0  # Asignar un valor por defecto o manejarlo según sea necesario
                         
                         if tiempo_uso > 0:
                             metodo_pago = int(input("Escoja método de pago \n1) Efectivo \n2) Tarjeta \n3) Puntos\n"))
