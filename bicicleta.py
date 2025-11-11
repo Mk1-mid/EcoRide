@@ -3,68 +3,83 @@ premiun = 100
 costo_estandar = 1000.0
 costo_premiun = 2000.0
 penalizacion = 0.20
+
 print("Bienvenido a la terminal de alquiler")
 bienvenida = int(input("Digita 1 para avanzar: \n "))
 
 if bienvenida == 1:
     bucle = True
-    while (bucle) == True:
+    while bucle == True:
         print("=======Menú de bicicletas======")
-        opcion = int(input("Seleciona la opcion \n1)Alquilar una bicicleta \n2)Consultar tarifas \n3)Salir \n"))
+        opcion = int(input("Selecciona la opción \n1) Alquilar una bicicleta \n2) Consultar tarifas \n3) Salir \n"))
+        
         match opcion:
             case 1:
-                
                 print("Escoge la marca de bicicleta\n")
-                bicicleta=int(input("1)Estandar \n2.)Premiun \n"))
-                if bicicleta == 1:
-                    print(f"El valor estandar es {costo_estandar} \n")
-                    tiempo_uso = float(input("Ingrese el tiempo de uso \n"))
-                    estandar=estandar-1
-                    if tiempo_uso > 0:
-                              
-                        metodo_pago=int(input("Escoja metodo de pago \n 1)Para cancelar con efectivo \n 2)Para cancelar con tarjeta \n 3)Para cancelar con puntos\n"))
-                        fin_semana = input("¿Es fin de semana? SI/NO \n").lower()
-                        retraso = input("¿Hubo retraso? SI/NO \n").upper()
+                bicicleta = int(input("1) Estandar \n2) Premiun \n"))
+                
+                match bicicleta:
+                    case 1:
+                        print(f"El valor estandar es {costo_estandar} por minuto\n")
+                        tiempo_uso = float(input("Ingrese el tiempo de uso en minutos:\n"))
                         
-                        print("--------------------------")
-                        match metodo_pago:
-                            case 1:
-                                precio_base = costo_estandar * tiempo_uso 
-                                print("Tu valor a pagar es:", precio_base)
-                            case 2:
-                                if tiempo_uso >=  60:
-                                    descuento = 0.10
-                                    total = costo_estandar* tiempo_uso*(1- descuento)
-                                    print("tu valor a pagar es:", total)
-
-                                    if fin_semana == "si":
-                                        precio_weekend=total+total*0.05
-                                        totalSemana = precio_weekend* tiempo_uso
-                                        print("tu valor a pagar mas el fin de semana es de:" , totalSemana)
-
-                                    elif fin_semana == "no":
-                                        descuento = 0.10
-                                    total = costo_estandar* tiempo_uso*(1- descuento)
-                                    print(f"Su precio sigue siendo el mismo de: {total} ")
-
-                                if retraso == "SI":
-                                    precio_base=costo_estandar * tiempo_uso 
-                                    totalPenalizacion = precio_base+costo_estandar*(1 * 0.20)
-                                    print("tu valor a pagar por el retraso es: ",totalPenalizacion)
-                                if retraso == "NO":
-                                    continue
-                                    
-                                elif tiempo_uso<60:
-                                    total = (costo_estandar * tiempo_uso)
-                                    print("tu valor a pagar es:", total)
-
-                                
-
-                            case 3:
-                                break
-
-                    elif tiempo_uso == 0:
-                        print("Tiempo incorrecto compa")      
-                elif bicicleta == 2:
-                    print(f"El valor premiun es {costo_premiun}")
-
+                        if tiempo_uso > 0:
+                            metodo_pago = int(input("Escoja método de pago \n1) Efectivo \n2) Tarjeta \n3) Puntos\n"))
+                            fin_semana = input("¿Es fin de semana? SI/NO \n").lower()
+                            retraso = input("¿Hubo retraso? SI/NO \n").upper()
+                            precio_base = costo_estandar * tiempo_uso
+                            total = precio_base
+                            
+                            if metodo_pago == 2 and tiempo_uso > 60:
+                                total = total * 0.9
+                            elif metodo_pago == 3 and tiempo_uso < 10:
+                                total = total
+                            
+                            if fin_semana == "si":
+                                total = total * 1.05
+                            
+                            if retraso == "SI":
+                                total = total + (precio_base * penalizacion)
+                            
+                            print("--------------------------")
+                            print(f"Tipo de bicicleta: Estandar\nTiempo de uso: {tiempo_uso} min\nPrecio base: {precio_base}\nTotal a pagar: {total}")
+                        else:
+                            print("Tiempo incorrecto, inténtalo de nuevo")
+                    
+                    case 2:
+                        print(f"El valor premiun es {costo_premiun} por minuto\n")
+                        tiempo_uso = float(input("Ingrese el tiempo de uso en minutos:\n"))
+                        
+                        if tiempo_uso > 0:
+                            metodo_pago = int(input("Escoja método de pago \n1) Efectivo \n2) Tarjeta \n3) Puntos\n"))
+                            fin_semana = input("¿Es fin de semana? SI/NO \n").lower()
+                            retraso = input("¿Hubo retraso? SI/NO \n").upper()
+                            precio_base = costo_premiun * tiempo_uso
+                            total = precio_base
+                            
+                            if metodo_pago == 2 and tiempo_uso > 60:
+                                total = total * 0.9
+                            elif metodo_pago == 3 and tiempo_uso < 10:
+                                total = total
+                            
+                            if fin_semana == "si":
+                                total = total * 1.05
+                            
+                            if retraso == "SI":
+                                total = total + (precio_base * penalizacion)
+                            
+                            print("--------------------------")
+                            print(f"Tipo de bicicleta: Premiun\nTiempo de uso: {tiempo_uso} min\nPrecio base: {precio_base}\nTotal a pagar: {total}")
+                        else:
+                            print("Tiempo incorrecto, inténtalo de nuevo")
+                
+                seguir = input("¿Deseas realizar otro alquiler? SI/NO \n").lower()
+                if seguir != "si":
+                    bucle = False
+            
+            case 2:
+                print(f"Tarifas:\nEstandar: ${costo_estandar} por minuto\nPremiun: ${costo_premiun} por minuto")
+            
+            case 3:
+                print("Gracias por usar EcoRide.")
+                bucle = False
